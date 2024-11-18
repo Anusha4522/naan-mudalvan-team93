@@ -1,103 +1,71 @@
-//Setup React Application
-npx create-react-app shopez-frontend
-cd shopez-frontend
-npm install axios react-router-dom bootstrap
-//Basic Structure
-//Create a simple product listing and cart functionality.
-// src/App.js
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Home from './components/Home';
-import Cart from './components/Cart';
+# Getting Started with Create React App
 
-function App() {
-    return (
-        <Router>
-            <Switch>
-                <Route path="/" exact component={Home} />
-                <Route path="/cart" component={Cart} />
-            </Switch>
-        </Router>
-    );
-}
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-export default App;
-//Product Component
-//Create components to display products and manage the cart.
-// src/components/Home.js
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+## Available Scripts
 
-const Home = () => {
-    const [products, setProducts] = useState([]);
+In the project directory, you can run:
 
-    useEffect(() => {
-        const fetchProducts = async () => {
-            const response = await axios.get('http://localhost:5000/api/products');
-            setProducts(response.data);
-        };
-        fetchProducts();
-    }, []);
+### `npm start`
 
-    return (
-        <div className="container">
-            <h1>Products</h1>
-            <div className="row">
-                {products.map(product => (
-                    <div className="col-md-4" key={product._id}>
-                        <div className="card">
-                            <img src={product.image} alt={product.name} />
-                            <h5>{product.name}</h5>
-                            <p>${product.price}</p>
-                            <button>Add to Cart</button>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
-};
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-export default Home;
-//Backend (Node.js with Express)
-//Setup Node.js Application
-mkdir shopez-backend
-cd shopez-backend
-npm init -y
-npm install express mongoose cors body-parser
-//Basic Server Setup
-//Create a simple Express server to handle API requests
-// server.js
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-const app = express();
+### `npm test`
 
-app.use(cors());
-app.use(express.json());
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-mongoose.connect('mongodb://localhost:27017/shopez', { useNewUrlParser: true, useUnifiedTopology: true });
+### `npm run build`
 
-const productSchema = new mongoose.Schema({
-    name: String,
-    price: Number,
-    image: String,
-    description: String,
-});
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-const Product = mongoose.model('Product', productSchema);
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-app.get('/api/products', async (req, res) => {
-    const products = await Product.find();
-    res.json(products);
-});
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-app.listen(5000, () => {
-    console.log('Server is running on http://localhost:5000');
-});
-//Running the Application
-//Start the backend server:
-node server.js
-//Start the frontend application:
-npm start
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
